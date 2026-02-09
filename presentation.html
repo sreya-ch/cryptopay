@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Cryptopay Project Presentation</title>
+
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+
+    <!-- Theme overrides -->
+    <style>
+        .reveal {
+            background: linear-gradient(135deg, #1e293b, #0b0e11);
+            color: #fff;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            color: #f0b90b;
+            /* Binance Yellow */
+            text-transform: uppercase;
+        }
+
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.6;
+        }
+
+        .reveal .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 20px;
+            color: #f0b90b;
+            font-weight: bold;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo">Cryptopay</div>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section>
+                <h1 style="font-size: 3.5em;">Cryptopay</h1>
+                <h3>Modern Cryptocurrency Exchange Platform</h3>
+                <p>A Secure, Real-time, and User-Friendly Crypto Eco-system</p>
+                <br>
+                <p style="font-size: 0.6em; color: #888;">Presented by: Sreya Ch</p>
+            </section>
+
+            <!-- Slide 2: Introduction -->
+            <section>
+                <h2>Overview</h2>
+                <ul>
+                    <li><strong>Unified Platform:</strong> Trading, Market Tracking, Wallet Management, and Mining
+                        Analytics in one place.</li>
+                    <li><strong>User-Centric:</strong> Designed for beginners and pros with a focus on ease of use.</li>
+                    <li><strong>Real-time Simulation:</strong> Provides a realistic experience of the crypto market.
+                    </li>
+                    <li><strong>Tech Stack:</strong> Modern Web Technologies (HTML5, Bootstrap, JS).</li>
+                </ul>
+            </section>
+
+            <!-- Slide 3: Problem & Solution -->
+            <section>
+                <section>
+                    <h2>The Problem</h2>
+                    <ul>
+                        <li>Crypto platforms are often too complex and intimidating for beginners.</li>
+                        <li>Fragmented tools: Trading, Learning, and Analytics are usually on different sites.</li>
+                        <li>Lack of safe "Sandbox" environments to learn without risking real money.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>The Solution: Cryptopay</h2>
+                    <ul>
+                        <li><strong>Simplified UI:</strong> Clean, Binance-inspired Dark Mode interface.</li>
+                        <li><strong>All-in-One:</strong> Combines Market, Wallet, and Mining.</li>
+                        <li><strong>Educational:</strong> Integrated specific "How it Works" and FAQ sections.</li>
+                        <li><strong>Safe Learning:</strong> Real-time data simulation with dummy balances.</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Slide 4: Technology Stack -->
+            <section>
+                <h2>Technology Stack</h2>
+                <div style="display: flex; justify-content: space-around; font-size: 0.8em;">
+                    <div style="text-align: left;">
+                        <h4 style="color: #61dafb;">Frontend</h4>
+                        <ul>
+                            <li>HTML5 & CSS3</li>
+                            <li>Bootstrap 5 (Responsive)</li>
+                            <li>JavaScript (ES6+)</li>
+                            <li>Reveal.js (Presentation)</li>
+                        </ul>
+                    </div>
+                    <div style="text-align: left;">
+                        <h4 style="color: #61dafb;">Integrations</h4>
+                        <ul>
+                            <li>TradingView Widgets (Live Charts)</li>
+                            <li>Chart.js (Analytics)</li>
+                            <li>FontAwesome (Icons)</li>
+                            <li>LocalStorage (Persistence)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Key Features - UX -->
+            <section>
+                <h2>Seamless User Experience</h2>
+                <ul>
+                    <li><strong>Secure Auth:</strong> Login & Registration with local session persistence.</li>
+                    <li><strong>Dynamic Profile:</strong>
+                        <ul>
+                            <li>Real-time data binding (Name, Email).</li>
+                            <li><strong>Random UID:</strong> Unique 9-digit User ID generation.</li>
+                            <li>"Verified" Status Badge.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Responsive:</strong> Optimized for Mobile/Desktop.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: Trading & Market -->
+            <section>
+                <h2>Market & Trading</h2>
+                <ul>
+                    <li><strong>Live Data:</strong> Real-time BTC/USDT price charts via TradingView.</li>
+                    <li><strong>News Feed:</strong> Rolling timeline of global crypto news.</li>
+                    <li><strong>Market Dashboard:</strong> dedicated page for tracking top coin performance (Bitcoin,
+                        Ethereum, Tether).</li>
+                </ul>
+            </section>
+
+            <!-- Slide 7: Wallet System -->
+            <section>
+                <h2>Secure Wallet</h2>
+                <ul>
+                    <li><strong>Dashboard:</strong> View estimated Total Balance (BTC & USD/INR).</li>
+                    <li><strong>Asset Breakdown:</strong> Visual split of holdings.</li>
+                    <li><strong>Transaction History:</strong> Local persistence of Deposits/Withdrawals.</li>
+                    <li><strong>Mock Payments:</strong> Simulation of UPI/Card payment methods.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 8: Mining Analytics -->
+            <section>
+                <h2>Mining Analytics</h2>
+                <ul>
+                    <li><strong>Visual Dashboard:</strong> Interactive Chart.js graphs.</li>
+                    <li><strong>Key Metrics:</strong> Hash Rate, Power Consumption, Efficiency.</li>
+                    <li><strong>Admin Tools:</strong> Network status monitoring.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 9: Future Scope -->
+            <section>
+                <h2>Future Scope</h2>
+                <ul>
+                    <li><strong>Backend:</strong> Node.js/Python integration for server-side DB.</li>
+                    <li><strong>Blockchain:</strong> Real on-chain data fetching.</li>
+                    <li><strong>P2P Trading:</strong> Enable peer-to-peer exchange features.</li>
+                    <li><strong>AI Bot:</strong> Advanced NLP for trading advice.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 10: Conclusion -->
+            <section>
+                <h2>Thank You</h2>
+                <p><strong>Cryptopay</strong> simplifies the journey into the world of digital currency.</p>
+                <br>
+                <div style="font-size: 0.7em; color: #f0b90b;">
+                    questions?
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            controls: true,
+            progress: true,
+            center: true,
+            transition: 'slide' // none/fade/slide/convex/concave/zoom
+        });
+    </script>
+</body>
+
+</html>

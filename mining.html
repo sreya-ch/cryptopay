@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mining Analytics Dashboard</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Dashboard Specific Overrides/Additions to style.css */
+        :root {
+            --bg-color: #0b0e11;
+            --card-bg: #1e2329;
+            --text-primary: #eaecef;
+            --text-secondary: #848e9c;
+            --accent-yellow: #f0b90b;
+            /* Binance Yellow */
+            --accent-green: #0ecb81;
+            --accent-red: #f6465d;
+            --border-color: #2b3139;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Layout Grid */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-yellow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background-color: #2b3139;
+            color: var(--accent-yellow);
+        }
+
+        .menu-item i {
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px 30px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* Dashboard Grid Sections */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding-bottom: 40px;
+        }
+
+        /* Generic Card Style */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Market Summary Cards (Row 1) */
+        .summary-card {
+            grid-column: span 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 4px solid var(--accent-yellow);
+        }
+
+        .summary-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .trend-up {
+            color: var(--accent-green);
+        }
+
+        .trend-down {
+            color: var(--accent-red);
+        }
+
+        /* Charts Section (Row 2) */
+        .chart-container-large {
+            grid-column: span 8;
+            height: 400px;
+        }
+
+        .chart-container-small {
+            grid-column: span 4;
+            height: 400px;
+        }
+
+        /* Tables Section (Row 3) */
+        .table-section {
+            grid-column: span 4;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 5px;
+            color: var(--text-secondary);
+            font-weight: normal;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px 5px;
+            border-bottom: 1px solid #2b3139;
+        }
+
+        .table-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Pattern Detection Alerts (Row 4) */
+        .alerts-section {
+            grid-column: span 12;
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+        }
+
+        .alert-card {
+            background: linear-gradient(145deg, #1e2329, #252a30);
+            min-width: 280px;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .alert-card.bullish {
+            border-top: 3px solid var(--accent-green);
+        }
+
+        .alert-card.bearish {
+            border-top: 3px solid var(--accent-red);
+        }
+
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .alert-body {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .summary-card {
+                grid-column: span 6;
+            }
+
+            .chart-container-large {
+                grid-column: span 12;
+            }
+
+            .chart-container-small {
+                grid-column: span 12;
+            }
+
+            .table-section {
+                grid-column: span 6;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            /* Hide sidebar on mobile for now */
+            .summary-card {
+                grid-column: span 12;
+            }
+
+            .table-section {
+                grid-column: span 12;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+   
+        <!-- Sidebar -->
+       
+
+        <!-- Main Content -->
+        
+            <!-- Header -->
+            <nav class="navbar navbar-dark">
+    <div class="container nav-wrapper">
+
+      <!-- Logo (Left) -->
+      <h2 class="logo">
+        <strong>Cryptopay</strong>
+      </h2>
+
+      <!-- Right Section -->
+      <div class="nav-right">
+
+        <!-- Main Links (Beside Hamburger) -->
+        <ul class="nav-links main-links">
+          <li><a href="./page.html">Home</a></li>
+          <li><a href="./market.html">Market</a></li>
+       
+
+          <li><a href="./payment.html">Payments</a></li>
+          <li><a href="./profile.html">Profile</a></li>
+        </ul>
+
+
+  </nav>
+<br>
+<br>
+            <div class="dashboard-grid">
+
+                <!-- 1. Market Trend Summary -->
+                <div class="card summary-card">
+                    <div class="summary-label">Market Trend</div>
+                    <div class="summary-value trend-up" id="marketTrend">Bullish <i class='bx bx-trending-up'></i></div>
+                </div>
+                <div class="card summary-card">
+                    <div class="summary-label">Average Market Change (24h)</div>
+                    <div class="summary-value trend-up" id="marketChange">+4.2%</div>
+                </div>
+                <div class="card summary-card">
+                    <div class="summary-label">Volatility Level</div>
+                    <div class="summary-value" style="color: var(--accent-yellow);" id="marketVolatility">Medium</div>
+                </div>
+                <div class="card summary-card">
+                    <div class="summary-label">Active Miners</div>
+                    <div class="summary-value">1,245</div>
+                </div>
+
+                <!-- 2. Charts Section -->
+                <div class="card chart-container-large">
+                    <div class="table-title">BTC Moving Average Trends (7D vs 30D)</div>
+                    <canvas id="maChart"></canvas>
+                </div>
+                <div class="card chart-container-small">
+                    <div class="table-title">Top Asset Volatility</div>
+                    <canvas id="volatilityChart"></canvas>
+                </div>
+
+                <!-- 3. Tables Section -->
+                <!-- Top Gainers -->
+                <div class="card table-section">
+                    <div class="table-title">
+                        <span>Top Gainers (Mined)</span>
+                        <i class='bx bxs-up-arrow-circle trend-up'></i>
+                    </div>
+                    <table id="gainersTable">
+                        <thead>
+                            <tr>
+                                <th>Coin</th>
+                                <th>Price</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Top Losers -->
+                <div class="card table-section">
+                    <div class="table-title">
+                        <span>Top Losers</span>
+                        <i class='bx bxs-down-arrow-circle trend-down'></i>
+                    </div>
+                    <table id="losersTable">
+                        <thead>
+                            <tr>
+                                <th>Coin</th>
+                                <th>Price</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Volume Spikes -->
+                <div class="card table-section">
+                    <div class="table-title">
+                        <span>Volume Anomalies</span>
+                        <i class='bx bxs-bell-ring' style="color: var(--accent-yellow);"></i>
+                    </div>
+                    <table id="volumeTable">
+                        <thead>
+                            <tr>
+                                <th>Coin</th>
+                                <th>Spike %</th>
+                                <th>Vol</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 4. Pattern Alerts -->
+                <div class="alerts-section" id="patternAlerts">
+                    <!-- Populated by JS -->
+                </div>
+
+            </div>
+        </main>
+    
+
+    <script>
+        // ==========================================
+        // DUMMY DATA SOURCE (To be replaced by API)
+        // ==========================================
+
+        // TODO: Replace with Spring Boot API response
+        const marketData = {
+            trend: "Bullish",
+            avgChange: 4.25,
+            volatility: "Medium",
+            coins: [
+                { name: "BTC", price: 42500, change: 2.5, volume: 35000, normalVol: 30000, volatility: 45 },
+                { name: "ETH", price: 2800, change: -1.2, volume: 15000, normalVol: 14000, volatility: 55 },
+                { name: "SOL", price: 95, change: 12.5, volume: 50000, normalVol: 10000, volatility: 85 },
+                { name: "ADA", price: 0.55, change: 0.8, volume: 2000, normalVol: 2100, volatility: 30 },
+                { name: "XRP", price: 0.60, change: -5.4, volume: 8000, normalVol: 4000, volatility: 70 },
+                { name: "DOT", price: 7.20, change: 3.1, volume: 1200, normalVol: 1100, volatility: 40 },
+                { name: "DOGE", price: 0.08, change: 8.9, volume: 90000, normalVol: 20000, volatility: 95 },
+                { name: "MATIC", price: 0.90, change: -2.1, volume: 5000, normalVol: 5200, volatility: 50 }
+            ]
+        };
+
+        const patternAlertsData = [
+            { coin: "BTC", type: "bullish", message: "Golden Cross detected on 4H chart" },
+            { coin: "SOL", type: "bullish", message: "Volume spike > 400% detected" },
+            { coin: "XRP", type: "bearish", message: "Rejection at key resistance level" },
+            { coin: "ETH", type: "neutral", message: "Consolidating in tight range" }
+        ];
+
+        // ==========================================
+        // UI POPULATION LOGIC
+        // ==========================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initDashboard();
+            initCharts();
+        });
+
+        function initDashboard() {
+            // 1. Gainers & Losers
+            const sortedByChange = [...marketData.coins].sort((a, b) => b.change - a.change);
+            const gainers = sortedByChange.slice(0, 4);
+            const losers = sortedByChange.slice().reverse().slice(0, 4);
+
+            populateTable('gainersTable', gainers, true);
+            populateTable('losersTable', losers, false);
+
+            // 2. Volume Spikes (Coins where Volume > 1.5x Normal)
+            const volumeSpikes = marketData.coins
+                .filter(c => c.volume > c.normalVol * 1.5)
+                .map(c => ({
+                    ...c,
+                    spikePct: ((c.volume - c.normalVol) / c.normalVol * 100).toFixed(0)
+                }));
+
+            populateVolumeTable(volumeSpikes);
+
+            // 3. Pattern Alerts
+            const alertContainer = document.getElementById('patternAlerts');
+            patternAlertsData.forEach(alert => {
+                const div = document.createElement('div');
+                div.className = `alert-card ${alert.type}`;
+                div.innerHTML = `
+                    <div class="alert-header">
+                        <i class='bx ${getAlertIcon(alert.type)}'></i>
+                        ${alert.coin} Alert
+                    </div>
+                    <div class="alert-body">
+                        ${alert.message}
+                    </div>
+                `;
+                alertContainer.appendChild(div);
+            });
+        }
+
+        function populateTable(tableId, data, isGainer) {
+            const tbody = document.querySelector(`#${tableId} tbody`);
+            data.forEach(coin => {
+                const tr = document.createElement('tr');
+                const colorClass = coin.change >= 0 ? 'trend-up' : 'trend-down';
+                tr.innerHTML = `
+                    <td style="font-weight:bold;">${coin.name}</td>
+                    <td>$${coin.price.toLocaleString()}</td>
+                    <td class="${colorClass}">${coin.change > 0 ? '+' : ''}${coin.change}%</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function populateVolumeTable(data) {
+            const tbody = document.querySelector(`#volumeTable tbody`);
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3">No anomalies detected</td></tr>';
+                return;
+            }
+            data.forEach(coin => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:bold;">${coin.name}</td>
+                    <td style="color: var(--accent-yellow);">+${coin.spikePct}%</td>
+                    <td>${(coin.volume / 1000).toFixed(1)}K</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function getAlertIcon(type) {
+            if (type === 'bullish') return 'bx-trending-up';
+            if (type === 'bearish') return 'bx-trending-down';
+            return 'bx-info-circle';
+        }
+
+        // ==========================================
+        // CHARTS CONFIGURATION
+        // ==========================================
+
+        function initCharts() {
+            // Chart 1: Moving Average Trends (Fake Data for BTC)
+            const ctxMA = document.getElementById('maChart').getContext('2d');
+
+            // Dummy historical data generation
+            const labels = Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`);
+            const dataPrice = Array.from({ length: 30 }, () => 40000 + Math.random() * 5000);
+            const dataMA7 = dataPrice.map((_, i, arr) => {
+                if (i < 7) return null;
+                const slice = arr.slice(i - 7, i);
+                return slice.reduce((a, b) => a + b, 0) / 7;
+            });
+            const dataMA30 = dataPrice.map((_, i, arr) => {
+                // Just making a smoother line for MA30 visual fake
+                return 42000 + Math.sin(i / 5) * 2000;
+            });
+
+            new Chart(ctxMA, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'BTC Price',
+                            data: dataPrice,
+                            borderColor: '#eaecef',
+                            borderWidth: 1,
+                            pointRadius: 0,
+                            tension: 0.1
+                        },
+                        {
+                            label: '7D MA',
+                            data: dataMA7,
+                            borderColor: '#f0b90b',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.4
+                        },
+                        {
+                            label: '30D MA',
+                            data: dataMA30,
+                            borderColor: '#8e44ad',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#848e9c' } }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#2b3139' },
+                            ticks: { color: '#848e9c' }
+                        },
+                        y: {
+                            grid: { color: '#2b3139' },
+                            ticks: { color: '#848e9c' }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Volatility Bar Chart
+            const ctxVol = document.getElementById('volatilityChart').getContext('2d');
+            const topVolCoins = marketData.coins.sort((a, b) => b.volatility - a.volatility).slice(0, 5);
+
+            new Chart(ctxVol, {
+                type: 'bar',
+                data: {
+                    labels: topVolCoins.map(c => c.name),
+                    datasets: [{
+                        label: 'Volatility Index',
+                        data: topVolCoins.map(c => c.volatility),
+                        backgroundColor: topVolCoins.map(c => c.volatility > 70 ? '#f6465d' : '#0ecb81'),
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#848e9c' }
+                        },
+                        y: {
+                            grid: { color: '#2b3139' },
+                            ticks: { color: '#848e9c' }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

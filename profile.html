@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Crypto Trading App</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Profile Specific Styles */
+        .profile-header {
+            background: linear-gradient(to right, #1e293b, #0b0e11);
+            padding: 40px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: #f0b90b;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .verified-badge {
+            background-color: #f0b90b;
+            color: black;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .balance-card {
+            background: #1e293b;
+            border-radius: 15px;
+            padding: 25px;
+            height: 100%;
+            border: 1px solid #334155;
+        }
+
+        .action-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: #475569;
+            color: #fff;
+        }
+
+        .action-btn.primary {
+            background: #f0b90b;
+            color: black;
+            font-weight: bold;
+        }
+
+        .action-btn.primary:hover {
+            background: #d4a000;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #334155;
+            color: #cfcfcf;
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-icon {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark">
+        <div class="container nav-wrapper">
+            <!-- Logo -->
+            <h2 class="logo">
+                <a href="page.html" style="text-decoration:none; color:inherit;"><strong>Cryptopay</strong></a>
+            </h2>
+
+            <!-- Right Section -->
+            <div class="nav-right">
+                <ul class="nav-links main-links">
+                    <li><a href="page.html">Home</a></li>
+                    <li><a href="market.html">Market</a></li>
+                    <li><a href="page.html#aboutustext">About Us</a></li>
+                    <li><a href="page.html#contactus">Contact</a></li>
+                    <li><a href="mining.html">Mining</a></li>
+                    <li><a href="payment.html">Payments</a></li>
+                    <li><a href="#" class="text-warning">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="container">
+            <div class="d-flex align-items-center flex-column flex-md-row gap-4">
+                <div class="profile-avatar">
+                    <div class="avatar-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="fw-bold mb-1"> <span id="name"></span></span><span class="verified-badge">VERIFIED</span>
+                    </h2>
+                    <p class="text-secondary mb-1">UID: <span id="user-uid">--</span> | User since 2024</p>
+                    <p class="text-secondary"><span id="email"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row g-4">
+
+            <!-- Left Column: Wallet Balance -->
+            <div class="col-lg-7">
+                <div class="balance-card">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                            <h5 class="text-secondary mb-2">Estimated Balance</h5>
+                            <h1 class="fw-bold mb-0">₹ <span id="walletBalance">0.00</span></h1>
+                            <p class="text-secondary">≈ <span id="bitcoinBalance">0.000000</span> BTC</p>
+                                  
+                        </div>
+                        <span class="badge bg-success p-2">Analysis +2.5%</span>
+                    </div>
+
+                    <div class="d-flex gap-3 mb-4">
+                        <button class="action-btn primary">Deposit</button>
+                        <button class="action-btn">Withdraw</button>
+                        <button class="action-btn">Transfer</button>
+                    </div>
+
+                    <hr class="border-secondary">
+
+                    <h5 class="mb-3 mt-4">Assets</h5>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div
+                                style="width:32px;height:32px;background:#f7931a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;">
+                                B</div>
+                            <div>
+                                <div class="fw-bold">Bitcoin</div>
+                                <div class="small text-secondary">BTC</div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-bold">0.4500</div>
+                            <div class="small text-secondary">$28,300.00</div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div
+                                style="width:32px;height:32px;background:#627eea;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;">
+                                E</div>
+                            <div>
+                                <div class="fw-bold">Ethereum</div>
+                                <div class="small text-secondary">ETH</div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-bold">1.2000</div>
+                            <div class="small text-secondary">$3,800.00</div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-3">
+                            <div
+                                style="width:32px;height:32px;background:#26a17b;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;">
+                                T</div>
+                            <div>
+                                <div class="fw-bold">Tether</div>
+                                <div class="small text-secondary">USDT</div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <div class="fw-bold">350.50</div>
+                            <div class="small text-secondary">$350.50</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Right Column: Details & Settings -->
+            <div class="col-lg-5">
+
+                <!-- Personal Details -->
+                <div class="balance-card mb-4">
+                    <h4 class="mb-4">Personal Details</h4>
+                    <div class="mb-3">
+                        <label class="text-secondary small">Full Name</label>
+                        <div class="fw-bold"><span id="newname"></span></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-secondary small">Phone Number</label>
+                        <div class="fw-bold"><span id="mobile"></span></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-secondary small">Email id</label>
+                        <div class="fw-bold"><span id="newemail"></span></div>
+                    </div>
+                    <div>
+                        <label class="text-secondary small">Country/Region</label>
+                        <div class="fw-bold">India</div>
+                    </div>
+                    <center>
+                        <h4 class="mb-4">Settings</h4>
+                    </center>
+
+                    <div class="settings-item">
+                        <div>Payment Methods</div>
+                        <a href="payment.html" class="text-warning text-decoration-none">Add/Edit ></a>
+                    </div>
+
+                    <div class="settings-item">
+                        <div>Preferences</div>
+                        <a href="#" class="text-warning text-decoration-none">Edit ></a>
+                    </div>
+                    <div class="mt-4">
+                        <a href="index.html" class="btn btn-outline-danger w-100">Log Out</a>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+
+
+
+
+            </div>
+
+            <!-- Footer -->
+            <footer>
+                <div class="container text-center">
+                    <p>&copy; 2026 Cryptocurrency App. All rights reserved.</p>
+                </div>
+            </footer>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    let uid = localStorage.getItem("user_uid");
+                    if (!uid) {
+                        // Generate a random 9-digit number
+                        uid = Math.floor(100000000 + Math.random() * 900000000);
+                        localStorage.setItem("user_uid", uid);
+                    }
+                    document.getElementById("user-uid").textContent = uid;
+                });
+                window.onload = function () {
+                    // Retrieve data from localStorage
+                    const name = localStorage.getItem("name");
+                    const email = localStorage.getItem("email");
+                    const mobile = localStorage.getItem("mobile");
+                    const newname=localStorage.getItem("name");
+                    const newemail=localStorage.getItem("email");
+          
+                    // Check if user is logged in (at least name should be present)
+                    if (!name) {
+                        // If we are testing and just want to see the page, we can leave this optional
+                        // or redirect. For "real time" feel, if no user, maybe redirect.
+                        // But let's fill with placeholders if missing or redirect if critical.
+                        // Given the flow, let's redirect to login if completely missing, or just alert.
+                        // For now, let's just populate what we have or show "Guest".
+                    }
+
+                    // Update DOM
+                    if (name) document.getElementById("name").textContent = name;
+                    if (email) document.getElementById("email").textContent = email;
+                    if (mobile) document.getElementById("mobile").textContent = mobile;
+                    if (newname) document.getElementById("newname").textContent = newname;
+                    if (newemail) document.getElementById("newemail").textContent = newemail;
+
+                    // Also ensure the other email field in the header is updated if it exists
+                    // The existing code had <p class="text-secondary"><span id="email"></span></p> which is good.
+                    // But there was another email in the original code, let's check if we need to target it.
+                    // The user replaced the hardcoded email with span id="email", so we are good.
+                };
+                
+const walletBalanceEl = document.getElementById("walletBalance");
+const bitcoinBalanceEl = document.getElementById("bitcoinBalance");
+const historyList = document.getElementById("historyList");
+
+// Load or set defaults
+let walletBalance = parseFloat(localStorage.getItem("walletBalance"));
+let bitcoinBalance = parseFloat(localStorage.getItem("bitcoinBalance"));
+let history = JSON.parse(localStorage.getItem("history"));
+
+if (isNaN(walletBalance)) walletBalance = 5000;
+if (isNaN(bitcoinBalance)) bitcoinBalance = 0.05;
+if (!Array.isArray(history)) history = [];
+
+// Save to localStorage
+function saveState() {
+    localStorage.setItem("walletBalance", walletBalance);
+    localStorage.setItem("bitcoinBalance", bitcoinBalance);
+    localStorage.setItem("history", JSON.stringify(history));
+}
+
+// Update UI
+function updateBalances() {
+    walletBalanceEl.textContent = walletBalance.toFixed(2);
+    bitcoinBalanceEl.textContent = bitcoinBalance.toFixed(6);
+
+    const availInr = document.querySelector(".availInr");
+    if (availInr) availInr.textContent = walletBalance.toFixed(2);
+
+    const availBtc = document.getElementById("availBtc");
+    if (availBtc) availBtc.textContent = bitcoinBalance.toFixed(6);
+
+    saveState();
+}
+
+// Add transaction history
+function addHistory(type, desc, amount) {
+    const date = new Date().toLocaleString();
+    history.unshift({ type, desc, amount, date });
+    renderHistory();
+    saveState();
+}
+
+// Render history list
+function renderHistory() {
+    if (!historyList) return;
+    historyList.innerHTML = history.map(h => `
+        <li>
+            <span class="history-type">${h.type}</span>
+            <span class="history-desc">${h.desc}</span>
+            <span class="history-amount">₹${h.amount}</span>
+        </li>
+    `).join("");
+}
+
+// Run on load
+document.addEventListener("DOMContentLoaded", () => {
+    updateBalances();
+    renderHistory();
+});
+
+
+            </script>
+
+</body>
+
+</html>

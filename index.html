@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cryptopay</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Optional styling for the dashboard cards */
+    #crypto-dashboard .card {
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .progress-bar {
+      transition: width 1s ease;
+    }
+
+    #newsFeed a {
+      color: #f0b90b;
+      text-decoration: none;
+    }
+
+    #newsFeed a:hover {
+      text-decoration: underline;
+    }
+
+    /* Chatbot Styles */
+    .chatbot-toggler {
+      position: fixed;
+      bottom: 30px;
+      right: 35px;
+      outline: none;
+      border: none;
+      height: 50px;
+      width: 50px;
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #f0b90b;
+      transition: all 0.2s ease;
+      z-index: 1000;
+    }
+
+    .chatbot-toggler:hover {
+      transform: scale(1.1);
+    }
+
+    .chatbot-toggler span {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .chatbot {
+      position: fixed;
+      right: 35px;
+      bottom: 90px;
+      width: 350px;
+      background: #1e293b;
+      border-radius: 15px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.5);
+      transform-origin: bottom right;
+      box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+        0 32px 64px -48px rgba(0, 0, 0, 0.5);
+      transition: all 0.1s ease;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .show-chatbot .chatbot {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    .chatbot header {
+      padding: 16px 0;
+      position: relative;
+      text-align: center;
+      color: #fff;
+      background: #f0b90b;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chatbot header span {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      display: none;
+      cursor: pointer;
+      transform: translateY(-50%);
+    }
+
+    .chatbox {
+      overflow-y: auto;
+      height: 300px;
+      padding: 15px 10px;
+    }
+
+    .chatbox .chat {
+      display: flex;
+      list-style: none;
+    }
+
+    .chatbox .incoming span {
+      background: #334155;
+      color: #fff;
+      border-radius: 10px 10px 10px 0;
+    }
+
+    .chatbox .outgoing {
+      justify-content: flex-end;
+      margin: 20px 0;
+    }
+
+    .chatbox .outgoing p {
+      background: #f0b90b;
+      color: #000;
+      border-radius: 10px 10px 0 10px;
+      padding: 10px;
+      max-width: 75%;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .chatbox .incoming p {
+      background: #334155;
+      color: #fff;
+      border-radius: 10px 10px 10px 0;
+      padding: 10px;
+      max-width: 75%;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 5px;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      background: #1e293b;
+    }
+
+    .chat-input textarea {
+      height: 40px;
+      width: 100%;
+      border: none;
+      outline: none;
+      resize: none;
+      max-height: 180px;
+      padding: 10px 0;
+      font-size: 0.95rem;
+      background: transparent;
+      color: #fff;
+    }
+
+    .chat-input span {
+      align-self: flex-end;
+      color: #f0b90b;
+      cursor: pointer;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      visibility: hidden;
+      font-size: 1.2rem;
+    }
+
+    .chat-input textarea:valid~span {
+      visibility: visible;
+    }
+
+    @media (max-width: 490px) {
+      .chatbot {
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+
+      .chatbot .chatbox {
+        height: 90%;
+      }
+
+      .chatbot header span {
+        display: block;
+      }
+    }
+
+    /* Ensure TradingView widgets can stretch to fill their cards */
+    .tradingview-widget-container,
+    .tradingview-widget-container__widget {
+      height: 100% !important;
+      min-height: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark">
+    <div class="container nav-wrapper">
+
+      <!-- Logo (Left) -->
+      <h2 class="logo">
+        <strong>Cryptopay</strong>
+      </h2>
+
+      <!-- Right Section -->
+      <div class="nav-right">
+
+        <!-- Main Links (Beside Hamburger) -->
+        <ul class="nav-links main-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="./market.html">Market</a></li>
+          <li><a href="#aboutustext">About Us</a></li>
+          <li><a href="#contactus">Contact</a></li>
+          <li><a href="./login.html" target="_blank" >
+                Login
+            </a></li>
+
+            <li><a href="./register.html" target="_blank" >
+                Register
+            </a></li>
+          
+           
+        </ul>
+
+
+  </nav>
+
+
+  <!-- Hero Section -->
+  <div class="container hero-section">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h1>Buy & Trade Crypto Easily</h1>
+        <p>
+          Join the world’s leading cryptocurrency exchange platform.
+          Trade Bitcoin, Ethereum, and hundreds of altcoins securely.
+        </p>
+        <a href="#aboutustext"><button class="btn btn-binance px-4 py-2 mt-3">
+          Get Started
+        </button></a>
+      </div>
+
+      <div class="col-md-6 text-center">
+        <img src="./crypto.jpg" alt="Crypto App" class="img-fluid" style="max-height:350px;">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Intro Section -->
+  <center>
+    <h1>Cryptocurrency</h1>
+  </center>
+  <div class="card crypto-card mb-5">
+    <div class="row g-0 align-items-stretch">
+
+      <div class="col-md-5 d-flex align-items-center justify-content-center">
+        <img src="crypto2.jpeg" class="img-fluid crypto-img" alt="Cryptocurrency">
+      </div>
+
+      <div class="col-md-7 d-flex align-items-center">
+        <div class="crypto-text-box">
+          <h4>
+            Cryptocurrency is a form of digital money that exists only online and does not have a physical form like
+            coins or notes. It uses cryptography to secure transactions and protect users from fraud. Cryptocurrency
+            works on a decentralized network, which means it is not controlled by any bank or central authority. Because
+            of this, transactions are transparent, secure, and can be made directly between users over the internet.
+            Popular examples of cryptocurrencies include Bitcoin and Ethereum.
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Crypto Dashboard: Graph & News -->
+  <div class="container-fluid my-5" id="crypto-dashboard">
+    <div class="row">
+      <!-- Live Graph -->
+      <div class="col-lg-8 mb-4">
+        <div class="card h-100 p-3 bg-dark" style="min-height:700px;">
+          <h3 class="text-white mb-3">Live Bitcoin Price</h3>
+          <div class="tradingview-widget-container" style="height:100%;width:100%">
+            <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+            <script type="text/javascript"
+              src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                {
+                  "autosize": true,
+                    "symbol": "BINANCE:BTCUSDT",
+                      "interval": "D",
+                        "timezone": "Etc/UTC",
+                          "theme": "dark",
+                            "style": "1",
+                              "locale": "en",
+                                "enable_publishing": false,
+                                  "allow_symbol_change": true,
+                                    "support_host": "https://www.tradingview.com"
+                }
+              </script>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live News -->
+      <div class="col-lg-4 mb-4">
+        <div class="card h-100 p-3 bg-dark" style="min-height:700px;">
+          <h3 class="text-white mb-3">Crypto News</h3>
+          <!-- TradingView Timeline Widget -->
+          <div class="tradingview-widget-container" style="height:100%;width:100%">
+            <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
+              async>
+                {
+                  "feedMode": "market",
+                    "market": "crypto",
+                      "colorTheme": "dark",
+                        "isTransparent": true,
+                          "displayMode": "regular",
+                            "width": "100%",
+                              "height": "100%",
+                                "locale": "en"
+                }
+              </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Us -->
+  <div class="aboutus" id="aboutustext">
+    <div class="crypto-text-box">
+      <center>
+        <h1>About us</h1>
+      </center>
+      <h4>
+        We are a platform created to help people understand cryptocurrency in a simple and clear way. Our mission is to
+        make digital currencies and blockchain technology easy to learn, even for beginners. We provide accurate and
+        easy-to-read information so users can explore the crypto world with confidence.
+
+        We focus on transparency, security, and innovation, and aim to explain complex concepts in a straightforward
+        manner. Our platform is designed for students, professionals, and anyone interested in learning about
+        cryptocurrencies, their uses, and their impact on the digital economy.
+      </h4>
+    </div>
+  </div>
+
+ <!-- How Our App Works -->
+<div class="container my-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold text-warning">How Our Crypto App Works</h1>
+    <p class="text">
+      Learn how to explore the market, trade safely, and manage your wallet
+    </p>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Market -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 bg-dark text-white text-center p-4 how-card">
+        <div class="icon mb-3">📊</div>
+        <h4>View Market</h4>
+        <p class="text">
+          Track live cryptocurrency prices, charts, and market trends in real time.
+        </p>
+      </div>
+    </div>
+
+    <!-- Trade -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 bg-dark text-white text-center p-4 how-card">
+        <div class="icon mb-3">🔁</div>
+        <h4>Trade Crypto</h4>
+        <p class="text">
+          Understand how crypto trading works using demo trading features.
+        </p>
+      </div>
+    </div>
+
+    <!-- Buy & Sell -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 bg-dark text-white text-center p-4 how-card">
+        <div class="icon mb-3">💰</div>
+        <h4>Buy & Sell</h4>
+        <p class="text" id="textcol">
+          Learn how to buy and sell cryptocurrencies step by step.
+        </p>
+      </div>
+    </div>
+
+    <!-- Wallet Security -->
+    <div class="col-md-6 col-lg-3">
+      <div class="card h-100 bg-dark text-white text-center p-4 how-card">
+        <div class="icon mb-3">🔐</div>
+        <h4>Secure Wallet</h4>
+        <p class="text" id="textcol">
+          Your data is protected with encryption and secure authentication.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
