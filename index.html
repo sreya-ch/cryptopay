@@ -8,6 +8,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
   <link rel="stylesheet" href="style.css">
   <style>
@@ -209,65 +211,46 @@
 </head>
 
 <body>
+
+  <!-- NAVBAR -->
   <nav class="navbar navbar-dark">
-    <div class="container nav-wrapper">
+    <div class="main-container nav-wrapper d-flex justify-content-between align-items-center">
+      <h2 class="logo m-0"><strong>Cryptopay</strong></h2>
 
-      <!-- Logo (Left) -->
-      <h2 class="logo">
-        <strong>Cryptopay</strong>
-      </h2>
-
-      <!-- Right Section -->
-      <div class="nav-right">
-
-        <!-- Main Links (Beside Hamburger) -->
-        <ul class="nav-links main-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="./market.html">Market</a></li>
-          <li><a href="#aboutustext">About Us</a></li>
-          <li><a href="#contactus">Contact</a></li>
-          <li><a href="./login.html" target="_blank" >
-                Login
-            </a></li>
-
-            <li><a href="./register.html" target="_blank" >
-                Register
-            </a></li>
-          
-           
-        </ul>
-
-
+      <ul class="nav-links main-links d-flex gap-4 m-0">
+        <li><a href="#">Home</a></li>
+        <li><a href="./market.html">Market</a></li>
+        <li><a href="#aboutustext">About Us</a></li>
+        <li><a href="#contactus">Contact</a></li>
+        <li><a href="./login.html" target="_blank">Login</a></li>
+        <li><a href="./register.html" target="_blank">Register</a></li>
+      </ul>
+    </div>
   </nav>
 
 
-  <!-- Hero Section -->
-  <div class="container hero-section">
-    <div class="row align-items-center">
+<section class="my-5" id="herosection">
+    <div class="main-container">
+     <div class="row align-items-center">
       <div class="col-md-6">
         <h1>Buy & Trade Crypto Easily</h1>
         <p>
           Join the world’s leading cryptocurrency exchange platform.
           Trade Bitcoin, Ethereum, and hundreds of altcoins securely.
         </p>
-        <a href="#aboutustext"><button class="btn btn-binance px-4 py-2 mt-3">
-          Get Started
-        </button></a>
+        <a href="#aboutustext" class="btn btn-binance px-4 py-2 mt-3">Get Started</a>
       </div>
-
       <div class="col-md-6 text-center">
-        <img src="./crypto.jpg" alt="Crypto App" class="img-fluid" style="max-height:350px;">
+        <img src="./crypto.jpg" class="img-fluid" style="max-height:350px;padding-left: 300px;">
       </div>
     </div>
-  </div>
-
-
-  <!-- Intro Section -->
-  <center>
-    <h1>Cryptocurrency</h1>
-  </center>
-  <div class="card crypto-card mb-5">
-    <div class="row g-0 align-items-stretch">
+    </div>
+  </section>
+<section class="my-5" id="nexttext">
+    <div class="main-container">
+      <h1 class="text-center mb-4">Cryptocurrency</h1>
+      <div class="crypto-text-box">
+        <div class="row g-0 align-items-stretch">
 
       <div class="col-md-5 d-flex align-items-center justify-content-center">
         <img src="crypto2.jpeg" class="img-fluid crypto-img" alt="Cryptocurrency">
@@ -285,70 +268,47 @@
         </div>
       </div>
     </div>
-  </div>
-
-
-  <!-- Crypto Dashboard: Graph & News -->
-  <div class="container-fluid my-5" id="crypto-dashboard">
-    <div class="row">
-      <!-- Live Graph -->
-      <div class="col-lg-8 mb-4">
-        <div class="card h-100 p-3 bg-dark" style="min-height:700px;">
-          <h3 class="text-white mb-3">Live Bitcoin Price</h3>
-          <div class="tradingview-widget-container" style="height:100%;width:100%">
-            <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
-            <script type="text/javascript"
-              src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-                {
-                  "autosize": true,
-                    "symbol": "BINANCE:BTCUSDT",
-                      "interval": "D",
-                        "timezone": "Etc/UTC",
-                          "theme": "dark",
-                            "style": "1",
-                              "locale": "en",
-                                "enable_publishing": false,
-                                  "allow_symbol_change": true,
-                                    "support_host": "https://www.tradingview.com"
-                }
+      </div>
+    </div>
+  </section>
+  
+  <!-- DASHBOARD -->
+  <section class="my-5" id="crypto-dashboard">
+    <div class="main-container">
+      <div class="row">
+        <div class="col-lg-7 mb-4">
+          <div class="card h-100 p-3 bg-dark" style="min-height:700px;">
+            <h3 class="text-white mb-3">Live Bitcoin Price</h3>
+            <div class="tradingview-widget-container h-100 w-100">
+              <div class="tradingview-widget-container__widget h-100 w-100"></div>
+              <script src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+              { "autosize": true, "symbol": "BINANCE:BTCUSDT", "theme": "dark" }
               </script>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Live News -->
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100 p-3 bg-dark" style="min-height:700px;">
-          <h3 class="text-white mb-3">Crypto News</h3>
-          <!-- TradingView Timeline Widget -->
-          <div class="tradingview-widget-container" style="height:100%;width:100%">
-            <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js"
-              async>
-                {
-                  "feedMode": "market",
-                    "market": "crypto",
-                      "colorTheme": "dark",
-                        "isTransparent": true,
-                          "displayMode": "regular",
-                            "width": "100%",
-                              "height": "100%",
-                                "locale": "en"
-                }
+        <div class="col-lg-5">
+          <div class="card h-100 p-3 bg-dark" style="min-height:700px;">
+            <h3 class="text-white mb-3">Crypto News</h3>
+            <div class="tradingview-widget-container h-100 w-100">
+              <div class="tradingview-widget-container__widget h-100 w-100"></div>
+              <script src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+              { "feedMode": "market", "market": "crypto", "colorTheme": "dark" }
               </script>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- About Us -->
-  <div class="aboutus" id="aboutustext">
-    <div class="crypto-text-box">
-      <center>
-        <h1>About us</h1>
-      </center>
-      <h4>
+  <!-- ABOUT -->
+  <section class="my-5" id="aboutustext">
+    <div class="main-container">
+      <h1 class="text-center mb-4">About Us</h1>
+      <div class="crypto-text-box">
+        <h4>
         We are a platform created to help people understand cryptocurrency in a simple and clear way. Our mission is to
         make digital currencies and blockchain technology easy to learn, even for beginners. We provide accurate and
         easy-to-read information so users can explore the crypto world with confidence.
@@ -357,63 +317,334 @@
         manner. Our platform is designed for students, professionals, and anyone interested in learning about
         cryptocurrencies, their uses, and their impact on the digital economy.
       </h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="my-5">
+    <div class="main-container">
+      <div class="text-center mb-5">
+        <h1 class="fw-bold text-warning">How Our Crypto App Works</h1>
+        <p>Learn how to explore the market, trade safely, and manage your wallet</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 bg-dark text-white text-center p-4 how-card">
+            <div class="icon mb-3">📊</div>
+            <h4>View Market</h4>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 bg-dark text-white text-center p-4 how-card">
+            <div class="icon mb-3">🔁</div>
+            <h4>Trade Crypto</h4>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 bg-dark text-white text-center p-4 how-card">
+            <div class="icon mb-3">💰</div>
+            <h4>Buy & Sell</h4>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card h-100 bg-dark text-white text-center p-4 how-card">
+            <div class="icon mb-3">🔐</div>
+            <h4>Secure Wallet</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<section class="my-5">
+    <div class="main-container">
+       <!-- FAQ Section -->
+  
+    <h1 class="text-center fw-bold mb-4 text-yellow">
+      Frequently Asked Questions
+    </h1>
+
+    <div class="accordion accordion-flush" id="faqAccordion">
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq1">
+            Why should I use this crypto trading platform?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            This platform provides a simple and secure way to explore,
+            track, and understand cryptocurrency trading with real-time
+            charts and market updates.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq2">
+            How can I buy cryptocurrencies on this website?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            You can view live prices, analyze trends, and understand
+            the buying process using demo features provided on this platform.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq3">
+            What is USDT and how is it used?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            USDT is a stable cryptocurrency used to trade digital assets
+            with minimal price fluctuation, making it ideal for beginners.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq4">
+            How does crypto trading work on this platform?
+          </button>
+        </h2>
+        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Users can analyze market data, view live charts, and
+            understand trading concepts through a simulated environment.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq5">
+            What features does this crypto website provide?
+          </button>
+        </h2>
+        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            The platform offers live price charts, crypto news,
+            educational content, and a user-friendly interface.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq6">
+            Is this platform safe to use?
+          </button>
+        </h2>
+        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            This is a demo crypto website built for learning purposes.
+            It does not process real money or actual transactions.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq7">
+            How can I track cryptocurrency prices?
+          </button>
+        </h2>
+        <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Prices can be tracked using live charts and real-time
+            market data available on the dashboard.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq8">
+            How can I avoid scams in cryptocurrency trading?
+          </button>
+        </h2>
+        <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Always verify sources, avoid suspicious links,
+            and never share personal or login information.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item bg-dark text-white">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-dark text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faq9">
+            Is this website suitable for beginners?
+          </button>
+        </h2>
+        <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, this website is designed to help beginners
+            understand cryptocurrency concepts step by step.
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+    </div>
+  </section>
+  <!-- FOOTER -->
+  <footer class="mt-5">
+    <div class="main-container" id="contactus">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Contact Us</h2>
+          <p>Have questions? Reach out anytime.</p>
+        </div>
+        <div class="col-md-6">
+          <form>
+            <input type="text" class="form-control mb-3" placeholder="Your Name">
+            <input type="email" class="form-control mb-3" placeholder="Your Email">
+            <textarea class="form-control mb-3" rows="3" placeholder="Your Message"></textarea>
+            <button class="btn btn-binance w-100" onclick="alertfun()">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </footer>
 
- <!-- How Our App Works -->
-<div class="container my-5">
-  <div class="text-center mb-5">
-    <h1 class="fw-bold text-warning">How Our Crypto App Works</h1>
-    <p class="text">
-      Learn how to explore the market, trade safely, and manage your wallet
-    </p>
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+    function alertfun() {
+      alert("Message Sent Successfully!");
+    }
+  </script>
+
+  <button class="chatbot-toggler">
+    <span>💬</span>
+  </button>
+  <div class="chatbot">
+    <header>
+      <h2>Crypto Bot</h2>
+      <span class="close-btn">×</span>
+    </header>
+    <ul class="chatbox">
+      <li class="chat incoming">
+        <span>🤖</span>
+        <p>Hi there 👋<br>How can I help you today?</p>
+      </li>
+    </ul>
+    <div class="chat-input">
+      <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
+      <span id="send-btn" class="material-symbols-rounded">➤</span>
+    </div>
   </div>
+   <script>
+    // Chatbot Logic
+    const chatbotToggler = document.querySelector(".chatbot-toggler");
+    const closeBtn = document.querySelector(".close-btn");
+    const chatbox = document.querySelector(".chatbox");
+    const chatInput = document.querySelector(".chat-input textarea");
+    const sendChatBtn = document.querySelector(".chat-input span");
+    function loginUser() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
 
-  <div class="row g-4">
+      fetch("http://localhost:8080/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.username) {
+            localStorage.setItem("loggedInUser", JSON.stringify(data));
+            window.location.href = "index.html"; // your main page
+          } else {
+            alert("Invalid username or password");
+          }
+        });
+    }
+    let userMessage = null;
+    const inputInitHeight = chatInput.scrollHeight;
 
-    <!-- Market -->
-    <div class="col-md-6 col-lg-3">
-      <div class="card h-100 bg-dark text-white text-center p-4 how-card">
-        <div class="icon mb-3">📊</div>
-        <h4>View Market</h4>
-        <p class="text">
-          Track live cryptocurrency prices, charts, and market trends in real time.
-        </p>
-      </div>
-    </div>
+    const createChatLi = (message, className) => {
+      const chatLi = document.createElement("li");
+      chatLi.classList.add("chat", className);
+      let chatContent = className === "outgoing" ? `<p></p>` : `<span>🤖</span><p></p>`;
+      chatLi.innerHTML = chatContent;
+      chatLi.querySelector("p").textContent = message;
+      return chatLi;
+    }
 
-    <!-- Trade -->
-    <div class="col-md-6 col-lg-3">
-      <div class="card h-100 bg-dark text-white text-center p-4 how-card">
-        <div class="icon mb-3">🔁</div>
-        <h4>Trade Crypto</h4>
-        <p class="text">
-          Understand how crypto trading works using demo trading features.
-        </p>
-      </div>
-    </div>
+    const generateResponse = (chatElement) => {
+      const responseElement = chatElement.querySelector("p");
 
-    <!-- Buy & Sell -->
-    <div class="col-md-6 col-lg-3">
-      <div class="card h-100 bg-dark text-white text-center p-4 how-card">
-        <div class="icon mb-3">💰</div>
-        <h4>Buy & Sell</h4>
-        <p class="text" id="textcol">
-          Learn how to buy and sell cryptocurrencies step by step.
-        </p>
-      </div>
-    </div>
+      const responses = [
+        "Cryptocurrency markets are volatile! Trade carefully.",
+        "You can check the Live Graph for real-time BTC prices.",
+        "Visit the Payments page to manage your wallet.",
+        "We support Bitcoin, Ethereum, and many others.",
+        "I'm here to assist you with your trading journey."
+      ];
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
 
-    <!-- Wallet Security -->
-    <div class="col-md-6 col-lg-3">
-      <div class="card h-100 bg-dark text-white text-center p-4 how-card">
-        <div class="icon mb-3">🔐</div>
-        <h4>Secure Wallet</h4>
-        <p class="text" id="textcol">
-          Your data is protected with encryption and secure authentication.
-        </p>
-      </div>
-    </div>
+      setTimeout(() => {
+        responseElement.textContent = randomResponse;
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+      }, 600);
+    }
 
-  </div>
-</div>
+    const handleChat = () => {
+      userMessage = chatInput.value.trim();
+      if (!userMessage) return;
+
+      chatInput.value = "";
+      chatInput.style.height = `${inputInitHeight}px`;
+
+      chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+      chatbox.scrollTo(0, chatbox.scrollHeight);
+
+      setTimeout(() => {
+        const incomingChatLi = createChatLi("Thinking...", "incoming");
+        chatbox.appendChild(incomingChatLi);
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+        generateResponse(incomingChatLi);
+      }, 600);
+    }
+
+    chatInput.addEventListener("input", () => {
+      chatInput.style.height = `${inputInitHeight}px`;
+      chatInput.style.height = `${chatInput.scrollHeight}px`;
+    });
+
+    chatInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+        e.preventDefault();
+        handleChat();
+      }
+    });
+
+    sendChatBtn.addEventListener("click", handleChat);
+    closeBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+    chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+  </script>
+
+</html>
